@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Anthropic)](https://www.nuget.org/packages/Anthropic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A .NET 8 demo project for the official [Anthropic C# SDK](https://github.com/anthropics/anthropic-sdk-csharp), covering four common Claude API usage patterns.
+A .NET 10 demo project for the official [Anthropic C# SDK](https://github.com/anthropics/anthropic-sdk-csharp), covering four common Claude API usage patterns.
 
 ## What It Demonstrates
 
@@ -25,13 +25,21 @@ A .NET 8 demo project for the official [Anthropic C# SDK](https://github.com/ant
 ```bash
 git clone https://github.com/your-username/ClaudeSDK101.git
 cd ClaudeSDK101
+```
 
-# Set your API key
-export ANTHROPIC_API_KEY="sk-ant-..."      # Linux / macOS
-$env:ANTHROPIC_API_KEY = "sk-ant-..."     # PowerShell
+Add your API key to `.env`:
 
+```env
+ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Then run:
+
+```bash
 dotnet run
 ```
+
+The app loads `.env` automatically via [DotNetEnv](https://github.com/motdotla/dotnet-env).
 
 ## Models Used
 
@@ -52,6 +60,7 @@ ClaudeSDK101/
 │   ├── StreamingChat.cs
 │   ├── MultiTurnConversation.cs
 │   └── ToolUse.cs
+├── .env                            # API key (git-ignored)
 └── ClaudeSDK101.csproj
 ```
 
