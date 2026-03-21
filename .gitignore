@@ -1,0 +1,29 @@
+# Build outputs
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+project.assets.json
+
+# Secrets — never commit API keys
+.env
+*.env
+appsettings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
