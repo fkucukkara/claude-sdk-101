@@ -19,6 +19,9 @@ obj/
 project.lock.json
 project.assets.json
 
+# Claude Code — local/personal settings
+.claude/settings.local.json
+
 # Secrets — never commit API keys
 .env
 *.env
