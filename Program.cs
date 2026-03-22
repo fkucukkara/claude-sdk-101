@@ -16,7 +16,7 @@ var client = new AnthropicClient { ApiKey = apiKey };
 await RunDemo("1. Basic Chat",             () => BasicChat.RunAsync(client));
 await RunDemo("2. Streaming Chat",         () => StreamingChat.RunAsync(client));
 await RunDemo("3. Multi-Turn Conversation",() => MultiTurnConversation.RunAsync(client));
-await RunDemo("4. Tool Use (Calculator)",  () => ToolUse.RunAsync(client));
+await RunDemo("4. Tool Use (DateTime)",    () => ToolUse.RunAsync(client));
 
 return 0;
 
