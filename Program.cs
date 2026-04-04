@@ -2,7 +2,7 @@ using Anthropic;
 using ClaudeSDK101.Examples;
 using DotNetEnv;
 
-Env.Load(); // load .env file if present
+Env.TraversePath().Load(); // load .env file, traversing up from cwd
 
 var apiKey = Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY");
 if (string.IsNullOrWhiteSpace(apiKey))
