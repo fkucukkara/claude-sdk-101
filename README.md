@@ -4,16 +4,18 @@
 [![NuGet](https://img.shields.io/nuget/v/Anthropic)](https://www.nuget.org/packages/Anthropic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A .NET 10 demo project for the official [Anthropic C# SDK](https://github.com/anthropics/anthropic-sdk-csharp), covering four common Claude API usage patterns.
+A .NET 10 demo project for the official [Anthropic C# SDK](https://github.com/anthropics/anthropic-sdk-csharp), covering six Claude API usage patterns ordered from simple to advanced.
 
 ## What It Demonstrates
 
-| Example | Description |
-|---|---|
-| `BasicChat` | Single-turn request and response |
-| `StreamingChat` | Token-by-token streamed output |
-| `MultiTurnConversation` | Stateful conversation with history |
-| `ToolUse` | Agentic tool/function calling loop |
+| # | Example | Description |
+|---|---|---|
+| 1 | `BasicChat` | Single-turn request and response |
+| 2 | `MultiTurnConversation` | Stateful conversation with accumulated history |
+| 3 | `StreamingChat` | Token-by-token streamed output |
+| 4 | `ToolUse` | Agentic tool/function calling loop |
+| 5 | `MainSubAgentSystem` | **Code-driven** orchestration: sequential sub-agents with working memory, context propagation, and adaptive plan (triage agent conditionally spawns deep-dives) |
+| 6 | `MultiAgentSystem` | **LLM-driven** orchestration: coordinator decides workflow via tool calls to specialist agents |
 
 ## Prerequisites
 
@@ -46,7 +48,9 @@ The app loads `.env` automatically via [DotNetEnv](https://github.com/motdotla/d
 | Example | Model | Why |
 |---|---|---|
 | BasicChat, Streaming, MultiTurn | `claude-haiku-4-5` | Fast and cost-effective |
-| ToolUse | `claude-sonnet-4-6` | Better reasoning for tool calls |
+| ToolUse, coordinator & synthesis roles | `claude-sonnet-4-6` | Better reasoning for tool calls and orchestration |
+| Sub-agent & triage workers (demos 5 & 6) | `claude-haiku-4-5` | Focused, single-file tasks need speed not depth |
+| Deep-dive agent (demo 5, conditional) | `claude-sonnet-4-6` | Escalates to stronger model when triage flags a critical bug |
 
 Swap any model for `claude-opus-4-6` for maximum capability.
 
@@ -54,12 +58,14 @@ Swap any model for `claude-opus-4-6` for maximum capability.
 
 ```
 ClaudeSDK101/
-├── Program.cs                      # Entry point — runs all four demos
+├── Program.cs                      # Entry point — runs all six demos sequentially
 ├── Examples/
-│   ├── BasicChat.cs
-│   ├── StreamingChat.cs
-│   ├── MultiTurnConversation.cs
-│   └── ToolUse.cs
+│   ├── 1-BasicChat.cs              # Single-turn
+│   ├── 2-MultiTurnConversation.cs  # History management
+│   ├── 3-StreamingChat.cs          # Token streaming
+│   ├── 4-ToolUse.cs                # Agentic tool loop
+│   ├── 5-MainSubAgentSystem.cs     # Parallel sub-agents (code-driven)
+│   └── 6-MultiAgentSystem.cs       # Specialist pipeline (LLM-driven)
 ├── .env                            # API key (git-ignored)
 └── ClaudeSDK101.csproj
 ```
