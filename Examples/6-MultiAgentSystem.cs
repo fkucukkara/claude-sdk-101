@@ -1,6 +1,6 @@
-using System.Text.Json;
 using Anthropic;
 using Anthropic.Models.Messages;
+using System.Text.Json;
 
 namespace ClaudeSDK101.Examples;
 
@@ -102,19 +102,19 @@ public static class MultiAgentSystem
         {
             var response = await client.Messages.Create(new MessageCreateParams
             {
-                Model     = Model.ClaudeSonnet4_6,
+                Model = Model.ClaudeSonnet4_6,
                 MaxTokens = 2048,
-                System    = "You are a research coordinator with three specialist agents available: " +
+                System = "You are a research coordinator with three specialist agents available: " +
                             "WebSearch (researches topics), Documentation (structures findings), " +
                             "and Synthesizer (produces final reports). " +
                             "Use them as the task demands — you decide which agents to call and in what order. " +
                             "Not every task requires all three agents.",
-                Tools     = tools,
-                Messages  = messages
+                Tools = tools,
+                Messages = messages
             });
 
             List<ContentBlockParam> assistantContent = [];
-            List<ContentBlockParam> toolResults      = [];
+            List<ContentBlockParam> toolResults = [];
 
             foreach (var block in response.Content)
             {
@@ -128,8 +128,8 @@ public static class MultiAgentSystem
                 {
                     assistantContent.Add(new ToolUseBlockParam
                     {
-                        ID    = toolUse.ID,
-                        Name  = toolUse.Name,
+                        ID = toolUse.ID,
+                        Name = toolUse.Name,
                         Input = toolUse.Input
                     });
 
@@ -137,12 +137,12 @@ public static class MultiAgentSystem
                     // to avoid the async-lambda-in-switch-expression limitation
                     var agentResult = await (toolUse.Name switch
                     {
-                        "call_websearch_agent"     => DispatchWebSearchAsync(client, toolUse),
+                        "call_websearch_agent" => DispatchWebSearchAsync(client, toolUse),
                         "call_documentation_agent" => DispatchDocumentationAsync(client, toolUse),
-                        "call_synthesizer_agent"   => DispatchSynthesizerAsync(client, toolUse),
+                        "call_synthesizer_agent" => DispatchSynthesizerAsync(client, toolUse),
                         // Return a structured error instead of throwing — keeps the loop alive
                         // so the coordinator can decide whether to retry, skip, or abort.
-                        _                          => Task.FromResult($"{{\"error\": \"Unknown agent: {toolUse.Name}\"}}")
+                        _ => Task.FromResult($"{{\"error\": \"Unknown agent: {toolUse.Name}\"}}")
                     });
 
                     // Guard against empty responses (API timeout, content filtered, etc.).
@@ -154,7 +154,7 @@ public static class MultiAgentSystem
                     toolResults.Add(new ToolResultBlockParam
                     {
                         ToolUseID = toolUse.ID,
-                        Content   = agentResult
+                        Content = agentResult
                     });
                 }
             }
@@ -204,10 +204,10 @@ public static class MultiAgentSystem
     {
         var response = await client.Messages.Create(new MessageCreateParams
         {
-            Model     = Model.ClaudeHaiku4_5,
+            Model = Model.ClaudeHaiku4_5,
             MaxTokens = 1024,
-            System    = "You are a research agent. When given a query, provide factual, detailed findings on the topic. Simulate thorough research results.",
-            Messages  = [new() { Role = Role.User, Content = query }]
+            System = "You are a research agent. When given a query, provide factual, detailed findings on the topic. Simulate thorough research results.",
+            Messages = [new() { Role = Role.User, Content = query }]
         });
 
         return string.Join("", response.Content.Select(b => b.Value).OfType<TextBlock>().Select(t => t.Text));
@@ -217,10 +217,10 @@ public static class MultiAgentSystem
     {
         var response = await client.Messages.Create(new MessageCreateParams
         {
-            Model     = Model.ClaudeHaiku4_5,
+            Model = Model.ClaudeHaiku4_5,
             MaxTokens = 1024,
-            System    = "You are a technical writer. Structure the provided findings into clear, organized documentation with sections and bullet points.",
-            Messages  = [new() { Role = Role.User, Content = findings }]
+            System = "You are a technical writer. Structure the provided findings into clear, organized documentation with sections and bullet points.",
+            Messages = [new() { Role = Role.User, Content = findings }]
         });
 
         return string.Join("", response.Content.Select(b => b.Value).OfType<TextBlock>().Select(t => t.Text));
@@ -230,10 +230,10 @@ public static class MultiAgentSystem
     {
         var response = await client.Messages.Create(new MessageCreateParams
         {
-            Model     = Model.ClaudeSonnet4_6,
+            Model = Model.ClaudeSonnet4_6,
             MaxTokens = 1024,
-            System    = "You are a synthesis expert. Produce a polished, executive-level final report from the provided documentation. Be concise and highlight key insights.",
-            Messages  = [new() { Role = Role.User, Content = documentation }]
+            System = "You are a synthesis expert. Produce a polished, executive-level final report from the provided documentation. Be concise and highlight key insights.",
+            Messages = [new() { Role = Role.User, Content = documentation }]
         });
 
         return string.Join("", response.Content.Select(b => b.Value).OfType<TextBlock>().Select(t => t.Text));

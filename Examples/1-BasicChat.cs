@@ -12,10 +12,10 @@ public static class BasicChat
 
         var response = await client.Messages.Create(new MessageCreateParams
         {
-            Model      = Model.ClaudeHaiku4_5,
-            MaxTokens  = 512,
-            System     = "You are a helpful assistant. Be concise.",
-            Messages   = [new() { Role = Role.User, Content = "Explain what a Large Language Model is in 2-3 sentences." }]
+            Model = Model.ClaudeHaiku4_5,
+            MaxTokens = 512,
+            System = "You are a helpful assistant. Be concise.",
+            Messages = [new() { Role = Role.User, Content = "Explain what a Large Language Model is in 2-3 sentences." }]
         });
 
         foreach (var text in response.Content.Select(b => b.Value).OfType<TextBlock>())

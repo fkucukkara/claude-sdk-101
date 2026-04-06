@@ -24,9 +24,9 @@ public static class MultiTurnConversation
 
         var response = await client.Messages.Create(new MessageCreateParams
         {
-            Model    = Model.ClaudeHaiku4_5,
+            Model = Model.ClaudeHaiku4_5,
             MaxTokens = 512,
-            System   = "You are a helpful programming tutor. Keep answers concise.",
+            System = "You are a helpful programming tutor. Keep answers concise.",
             Messages = messages
         });
 

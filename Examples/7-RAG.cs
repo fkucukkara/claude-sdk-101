@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
 using Anthropic;
 using Anthropic.Models.Messages;
+using System.Text.RegularExpressions;
 
 namespace ClaudeSDK101.Examples;
 
@@ -120,11 +120,11 @@ public static class Rag
             // ── Stage 3: Generate a grounded answer ───────────────────────────────
             var response = await client.Messages.Create(new MessageCreateParams
             {
-                Model     = Model.ClaudeHaiku4_5,
+                Model = Model.ClaudeHaiku4_5,
                 MaxTokens = 256,
-                System    = "You are a precise assistant that answers questions strictly based on the " +
+                System = "You are a precise assistant that answers questions strictly based on the " +
                             "provided context. Never use prior knowledge or assumptions outside the context.",
-                Messages  = [new() { Role = Role.User, Content = augmentedPrompt }]
+                Messages = [new() { Role = Role.User, Content = augmentedPrompt }]
             });
 
             var answer = string.Join("", response.Content.Select(b => b.Value).OfType<TextBlock>().Select(t => t.Text));
@@ -164,7 +164,7 @@ public static class Rag
     {
         var tokens = Tokenise(text);
         var counts = tokens.GroupBy(t => t).ToDictionary(g => g.Key, g => (double)g.Count());
-        var norm   = Math.Sqrt(counts.Values.Sum(v => v * v));
+        var norm = Math.Sqrt(counts.Values.Sum(v => v * v));
         // L2-normalise so cosine similarity reduces to a simple dot product
         return norm == 0 ? counts : counts.ToDictionary(kv => kv.Key, kv => kv.Value / norm);
     }

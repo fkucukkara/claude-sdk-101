@@ -1,6 +1,6 @@
-using System.Text.Json;
 using Anthropic;
 using Anthropic.Models.Messages;
+using System.Text.Json;
 
 namespace ClaudeSDK101.Examples;
 
@@ -74,14 +74,14 @@ public static class ToolUse
         {
             var response = await client.Messages.Create(new MessageCreateParams
             {
-                Model     = Model.ClaudeSonnet4_6,
+                Model = Model.ClaudeSonnet4_6,
                 MaxTokens = 1024,
-                Tools     = tools,
-                Messages  = messages
+                Tools = tools,
+                Messages = messages
             });
 
             List<ContentBlockParam> assistantContent = [];
-            List<ContentBlockParam> toolResults      = [];
+            List<ContentBlockParam> toolResults = [];
 
             foreach (var block in response.Content)
             {
@@ -96,8 +96,8 @@ public static class ToolUse
                     // Reconstruct the assistant's tool-use block so we can append it to history
                     assistantContent.Add(new ToolUseBlockParam
                     {
-                        ID    = toolUse.ID,
-                        Name  = toolUse.Name,
+                        ID = toolUse.ID,
+                        Name = toolUse.Name,
                         Input = toolUse.Input
                     });
 
@@ -105,8 +105,8 @@ public static class ToolUse
                     var result = toolUse.Name switch
                     {
                         "get_current_datetime" => ExecuteGetDatetime(toolUse),
-                        "get_random_number"    => ExecuteGetRandomNumber(toolUse),
-                        _                      => throw new Exception($"Unknown tool: {toolUse.Name}")
+                        "get_random_number" => ExecuteGetRandomNumber(toolUse),
+                        _ => throw new Exception($"Unknown tool: {toolUse.Name}")
                     };
 
                     Console.WriteLine($"  [Tool '{toolUse.Name}' called → \"{result}\"]");
@@ -114,7 +114,7 @@ public static class ToolUse
                     toolResults.Add(new ToolResultBlockParam
                     {
                         ToolUseID = toolUse.ID,
-                        Content   = result
+                        Content = result
                     });
                 }
             }

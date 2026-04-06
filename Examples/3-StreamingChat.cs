@@ -13,9 +13,9 @@ public static class StreamingChat
 
         await foreach (var streamEvent in client.Messages.CreateStreaming(new MessageCreateParams
         {
-            Model     = Model.ClaudeHaiku4_5,
+            Model = Model.ClaudeHaiku4_5,
             MaxTokens = 300,
-            Messages  = [new() { Role = Role.User, Content = "Write a short poem about software development." }]
+            Messages = [new() { Role = Role.User, Content = "Write a short poem about software development." }]
         }))
         {
             if (streamEvent.TryPickContentBlockDelta(out var delta) &&

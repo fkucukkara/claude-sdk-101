@@ -99,9 +99,9 @@ public static class MainSubAgentSystem
 
         var planResponse = await client.Messages.Create(new MessageCreateParams
         {
-            Model    = Model.ClaudeSonnet4_6,
+            Model = Model.ClaudeSonnet4_6,
             MaxTokens = 128,
-            System   = "You are a code review lead. State the overall review goal in 1-2 sentences. Be specific about what to watch for.",
+            System = "You are a code review lead. State the overall review goal in 1-2 sentences. Be specific about what to watch for.",
             Messages = [new() { Role = Role.User, Content = $"We are reviewing a payment service PR. Files: {fileList}" }]
         });
 
@@ -153,9 +153,9 @@ public static class MainSubAgentSystem
 
         var synthesisResponse = await client.Messages.Create(new MessageCreateParams
         {
-            Model    = Model.ClaudeSonnet4_6,
+            Model = Model.ClaudeSonnet4_6,
             MaxTokens = 1024,
-            System   = "You are a code review lead. Synthesize the findings into a prioritized action list " +
+            System = "You are a code review lead. Synthesize the findings into a prioritized action list " +
                        "with severity levels (Critical / Warning / Info) and concrete next steps.",
             Messages =
             [
@@ -186,9 +186,9 @@ public static class MainSubAgentSystem
 
         var response = await client.Messages.Create(new MessageCreateParams
         {
-            Model    = Model.ClaudeHaiku4_5,
+            Model = Model.ClaudeHaiku4_5,
             MaxTokens = 512,
-            System   = "You are a code reviewer. Identify bugs, smells, and improvements. " +
+            System = "You are a code reviewer. Identify bugs, smells, and improvements. " +
                        "Note any issues that relate to or compound findings from other files. Be concise.",
             Messages =
             [
@@ -212,9 +212,9 @@ public static class MainSubAgentSystem
     {
         var response = await client.Messages.Create(new MessageCreateParams
         {
-            Model    = Model.ClaudeHaiku4_5,
+            Model = Model.ClaudeHaiku4_5,
             MaxTokens = 5,
-            System   = "You are a triage agent. Reply with only YES or NO.",
+            System = "You are a triage agent. Reply with only YES or NO.",
             Messages =
             [
                 new()
@@ -246,9 +246,9 @@ public static class MainSubAgentSystem
 
         var response = await client.Messages.Create(new MessageCreateParams
         {
-            Model    = Model.ClaudeSonnet4_6, // escalate — deep analysis warrants a stronger model
+            Model = Model.ClaudeSonnet4_6, // escalate — deep analysis warrants a stronger model
             MaxTokens = 512,
-            System   = "You are a senior engineer specializing in critical bug analysis. " +
+            System = "You are a senior engineer specializing in critical bug analysis. " +
                        "Be concise but thorough on blast radius and the recommended fix.",
             Messages =
             [
