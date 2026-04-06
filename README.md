@@ -16,6 +16,7 @@ A .NET 10 demo project for the official [Anthropic C# SDK](https://github.com/an
 | 4 | `ToolUse` | Agentic tool/function calling loop |
 | 5 | `MainSubAgentSystem` | **Code-driven** orchestration: sequential sub-agents with working memory, context propagation, and adaptive plan (triage agent conditionally spawns deep-dives) |
 | 6 | `MultiAgentSystem` | **LLM-driven** orchestration: coordinator decides workflow via tool calls to specialist agents |
+| 7 | `Rag` | **Retrieval-Augmented Generation**: index a private knowledge base, retrieve top-K chunks by cosine similarity, inject as grounded context |
 
 ## Prerequisites
 
@@ -51,6 +52,7 @@ The app loads `.env` automatically via [DotNetEnv](https://github.com/motdotla/d
 | ToolUse, coordinator & synthesis roles | `claude-sonnet-4-6` | Better reasoning for tool calls and orchestration |
 | Sub-agent & triage workers (demos 5 & 6) | `claude-haiku-4-5` | Focused, single-file tasks need speed not depth |
 | Deep-dive agent (demo 5, conditional) | `claude-sonnet-4-6` | Escalates to stronger model when triage flags a critical bug |
+| RAG generation (demo 7) | `claude-haiku-4-5` | Fast, grounded answers; retrieval does the heavy lifting |
 
 Swap any model for `claude-opus-4-6` for maximum capability.
 
@@ -65,7 +67,8 @@ ClaudeSDK101/
 │   ├── 3-StreamingChat.cs          # Token streaming
 │   ├── 4-ToolUse.cs                # Agentic tool loop
 │   ├── 5-MainSubAgentSystem.cs     # Parallel sub-agents (code-driven)
-│   └── 6-MultiAgentSystem.cs       # Specialist pipeline (LLM-driven)
+│   ├── 6-MultiAgentSystem.cs       # Specialist pipeline (LLM-driven)
+│   └── 7-RAG.cs                    # Retrieval-Augmented Generation
 ├── .env                            # API key (git-ignored)
 └── ClaudeSDK101.csproj
 ```

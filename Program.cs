@@ -19,6 +19,7 @@ await RunDemo("3. Multi-Turn Conversation", () => MultiTurnConversation.RunAsync
 await RunDemo("4. Tool Use (DateTime)", () => ToolUse.RunAsync(client));
 await RunDemo("5. Main / Sub-Agent System", () => MainSubAgentSystem.RunAsync(client));
 await RunDemo("6. Multi-Agent System", () => MultiAgentSystem.RunAsync(client));
+await RunDemo("7. RAG", () => Rag.RunAsync(client));
 
 return 0;
 
