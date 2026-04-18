@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Anthropic)](https://www.nuget.org/packages/Anthropic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A .NET 10 demo project for the official [Anthropic C# SDK](https://github.com/anthropics/anthropic-sdk-csharp), covering six Claude API usage patterns ordered from simple to advanced.
+A .NET 10 demo project for the official [Anthropic C# SDK](https://github.com/anthropics/anthropic-sdk-csharp), covering eight Claude API usage patterns ordered from simple to advanced.
 
 ## What It Demonstrates
 
@@ -17,6 +17,7 @@ A .NET 10 demo project for the official [Anthropic C# SDK](https://github.com/an
 | 5 | `MainSubAgentSystem` | **Code-driven** orchestration: sequential sub-agents with working memory, context propagation, and adaptive plan (triage agent conditionally spawns deep-dives) |
 | 6 | `MultiAgentSystem` | **LLM-driven** orchestration: coordinator decides workflow via tool calls to specialist agents |
 | 7 | `Rag` | **Retrieval-Augmented Generation**: index a private knowledge base, retrieve top-K chunks by cosine similarity, inject as grounded context |
+| 8 | `McpClientServer` | **MCP in-process**: wire an MCP server and client over paired `System.IO.Pipelines`, discover tools, convert to Anthropic tool format, and run an agentic loop dispatching calls through MCP |
 
 ## Prerequisites
 
@@ -53,6 +54,7 @@ The app loads `.env` automatically via [DotNetEnv](https://github.com/motdotla/d
 | Sub-agent & triage workers (demos 5 & 6) | `claude-haiku-4-5` | Focused, single-file tasks need speed not depth |
 | Deep-dive agent (demo 5, conditional) | `claude-sonnet-4-6` | Escalates to stronger model when triage flags a critical bug |
 | RAG generation (demo 7) | `claude-haiku-4-5` | Fast, grounded answers; retrieval does the heavy lifting |
+| MCP agentic loop (demo 8) | `claude-sonnet-4-6` | Tool routing through MCP benefits from stronger reasoning |
 
 Swap any model for `claude-opus-4-6` for maximum capability.
 
@@ -60,7 +62,7 @@ Swap any model for `claude-opus-4-6` for maximum capability.
 
 ```
 ClaudeSDK101/
-├── Program.cs                      # Entry point — runs all six demos sequentially
+├── Program.cs                      # Entry point — runs all eight demos sequentially
 ├── Examples/
 │   ├── 1-BasicChat.cs              # Single-turn
 │   ├── 2-MultiTurnConversation.cs  # History management
@@ -68,7 +70,8 @@ ClaudeSDK101/
 │   ├── 4-ToolUse.cs                # Agentic tool loop
 │   ├── 5-MainSubAgentSystem.cs     # Parallel sub-agents (code-driven)
 │   ├── 6-MultiAgentSystem.cs       # Specialist pipeline (LLM-driven)
-│   └── 7-RAG.cs                    # Retrieval-Augmented Generation
+│   ├── 7-RAG.cs                    # Retrieval-Augmented Generation
+│   └── 8-McpClientServer.cs        # MCP in-process client/server with Claude tool use
 ├── .env                            # API key (git-ignored)
 └── ClaudeSDK101.csproj
 ```

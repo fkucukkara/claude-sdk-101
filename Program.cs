@@ -20,6 +20,7 @@ await RunDemo("4. Tool Use (DateTime)", () => ToolUse.RunAsync(client));
 await RunDemo("5. Main / Sub-Agent System", () => MainSubAgentSystem.RunAsync(client));
 await RunDemo("6. Multi-Agent System", () => MultiAgentSystem.RunAsync(client));
 await RunDemo("7. RAG", () => Rag.RunAsync(client));
+await RunDemo("8. MCP Client-Server", () => McpClientServer.RunAsync(client));
 
 return 0;
 
