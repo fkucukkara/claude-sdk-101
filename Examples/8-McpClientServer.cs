@@ -16,7 +16,7 @@ namespace ClaudeSDK101.Examples;
 // Creates and configures an MCP server with two tools over a stream transport.
 // No DI or hosting required — just a transport and a tool collection.
 
-public static class McpDemoServer
+public static class MCPDemoServer
 {
     public static McpServer Create(Stream input, Stream output)
     {
@@ -50,7 +50,7 @@ public static class McpDemoServer
 // Connects to the MCP server, discovers tools, converts them to Anthropic Tool
 // objects, then runs a Claude agentic loop dispatching calls through MCP.
 
-public static class McpAgentLoop
+public static class MCPAgentLoop
 {
     public static async Task RunAsync(AnthropicClient anthropic, Stream readStream, Stream writeStream)
     {
@@ -161,12 +161,12 @@ public static class McpClientServer
 
         Pipe clientToServer = new(), serverToClient = new();
 
-        var server = McpDemoServer.Create(
+        var server = MCPDemoServer.Create(
             clientToServer.Reader.AsStream(),
             serverToClient.Writer.AsStream());
         var serverTask = server.RunAsync();
 
-        await McpAgentLoop.RunAsync(
+        await MCPAgentLoop.RunAsync(
             client,
             serverToClient.Reader.AsStream(),
             clientToServer.Writer.AsStream());

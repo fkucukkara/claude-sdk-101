@@ -71,7 +71,7 @@ ClaudeSDK101/
 │   ├── 5-MainSubAgentSystem.cs     # Parallel sub-agents (code-driven)
 │   ├── 6-MultiAgentSystem.cs       # Specialist pipeline (LLM-driven)
 │   ├── 7-RAG.cs                    # Retrieval-Augmented Generation
-│   └── 8-McpClientServer.cs        # MCP in-process client/server with Claude tool use
+│   └── 8-MCPClientServer.cs        # MCP in-process client/server with Claude tool use
 ├── .env                            # API key (git-ignored)
 └── ClaudeSDK101.csproj
 ```
